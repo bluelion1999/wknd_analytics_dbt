@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: wknd
+    schema: raw
+    tables:
+      - name: raw_customers
+      - name: raw_adventures
+      - name: raw_bookings
+      - name: raw_payments
+      - name: raw_reviews

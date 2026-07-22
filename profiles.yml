@@ -1,0 +1,7 @@
+'wknd_analytics':
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: 'wknd.duckdb'
+      threads: 4

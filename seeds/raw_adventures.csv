@@ -1,0 +1,13 @@
+adventure_id,adventure_name,category,difficulty,price_usd,duration_days,location,is_active
+1,Patagonia Trekking Circuit,Hiking,Hard,2400.00,9,Chile,true
+2,Costa Rica Rainforest Zipline,Adventure,Easy,650.00,3,Costa Rica,true
+3,Icelandic Glacier Kayaking,Kayaking,Medium,1350.00,5,Iceland,true
+4,Moroccan Desert Trek,Hiking,Medium,1100.00,6,Morocco,true
+5,New Zealand Bungee & Canyon,Adventure,Hard,1800.00,7,New Zealand,true
+6,Amazon River Expedition,Kayaking,Hard,2100.00,8,Brazil,true
+7,Swiss Alps Via Ferrata,Climbing,Hard,1950.00,6,Switzerland,true
+8,Bali Surf Camp,Surfing,Easy,800.00,4,Indonesia,true
+9,Norwegian Fjord Cycling,Cycling,Medium,1250.00,5,Norway,true
+10,Grand Canyon Rafting,Kayaking,Medium,1450.00,4,United States,true
+11,Kilimanjaro Summit Trek,Hiking,Hard,2800.00,10,Tanzania,true
+12,Vietnam Motorbike Trail,Cycling,Easy,700.00,5,Vietnam,false

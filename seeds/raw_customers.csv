@@ -1,0 +1,26 @@
+customer_id,first_name,last_name,email,signup_date,country
+1,Kai,Johnson,kai.johnson1@example.com,2022-02-21,Australia
+2,Isabella,Rossi,isabella.rossi2@example.com,2022-10-13,Canada
+3,Zoe,Petrov,zoe.petrov3@example.com,2022-06-28,Sweden
+4,Harper,Garcia,harper.garcia4@example.com,2022-03-03,Canada
+5,Elijah,Rossi,elijah.rossi5@example.com,2024-10-31,Sweden
+6,Ava,Petrov,ava.petrov6@example.com,2023-02-12,South Africa
+7,Harper,Rossi,harper.rossi7@example.com,2024-07-08,Sweden
+8,Mateo,Nguyen,mateo.nguyen8@example.com,2022-11-23,Japan
+9,Lucas,Dubois,lucas.dubois9@example.com,2022-11-15,Germany
+10,Theo,Silva,theo.silva10@example.com,2022-07-29,Canada
+11,Levi,Johnson,levi.johnson11@example.com,2024-01-06,Brazil
+12,Nora,Dubois,nora.dubois12@example.com,2022-03-30,France
+13,Luna,Johnson,luna.johnson13@example.com,2024-02-15,Canada
+14,Luna,Andersson,luna.andersson14@example.com,2025-06-20,Brazil
+15,Leo,Muller,leo.muller15@example.com,2022-05-23,United States
+16,Zoe,Rossi,zoe.rossi16@example.com,2023-08-16,Canada
+17,Isabella,Johnson,isabella.johnson17@example.com,2024-02-18,Australia
+18,Ezra,Kowalski,ezra.kowalski18@example.com,2022-11-30,Brazil
+19,Amelia,Muller,amelia.muller19@example.com,2023-07-01,Canada
+20,Nora,Kim,nora.kim20@example.com,2024-12-29,Germany
+21,Sophia,Tanaka,sophia.tanaka21@example.com,2024-02-17,Australia
+22,Kai,Petrov,kai.petrov22@example.com,2023-03-26,Brazil
+23,Theo,Garcia,theo.garcia23@example.com,2023-04-15,United States
+24,Lucas,Haile,lucas.haile24@example.com,2023-07-03,Canada
+25,Elijah,Chen,elijah.chen25@example.com,2023-10-07,Germany
