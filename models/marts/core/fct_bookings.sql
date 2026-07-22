@@ -19,6 +19,7 @@ select
     bookings.last_payment_date,
     bookings.has_refund,
     reviews.avg_rating,
+    reviews.review_count,
     reviews.latest_review_date
 from 
     bookings

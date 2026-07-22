@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: customer_metrics
+    columns:
+      - name: customer_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: adventure_reporting
+    columns:
+      - name: adventure_id
+        data_tests:
+          - unique
+          - not_null
