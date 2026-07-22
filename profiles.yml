@@ -3,5 +3,5 @@
   outputs:
     dev:
       type: duckdb
-      path: 'wknd.duckdb'
+      path: "{{ env_var('DBT_DUCKDB_PATH', 'wknd.duckdb') }}"
       threads: 4

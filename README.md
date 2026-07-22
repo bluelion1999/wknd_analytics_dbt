@@ -84,7 +84,8 @@ graph LR
 │   └── days_between.sql        # Custom macro used to compute customer tenure
 ├── dbt_project.yml
 ├── packages.yml                 # dbt_utils
-└── profiles.yml                  # DuckDB connection (committed — no secrets, pure local file)
+├── profiles.yml                  # DuckDB connection (committed — no secrets, pure local file)
+└── orchestration/                # Optional: Airflow + Cosmos scheduling layer, see below
 ```
 
 ## Getting started
@@ -110,8 +111,26 @@ dbt docs generate
 dbt docs serve      # interactive lineage graph + column-level docs
 ```
 
+## Orchestration (optional): Airflow + Cosmos
+
+The dbt project above is fully self-contained and runs standalone — nothing below is required to use it. `orchestration/` adds a scheduling layer on top, for demonstrating how this project would run on a recurring schedule in production, via [Apache Airflow](https://airflow.apache.org/) and [astronomer-cosmos](https://astronomer.github.io/astronomer-cosmos/) (which turns each dbt model into its own Airflow task, with dependencies matching dbt's own DAG).
+
+```bash
+cd orchestration
+docker compose up airflow-init          # one-time: migrates the metadata DB, creates an admin user, generates manifest.json
+docker compose up -d airflow-webserver airflow-scheduler
+```
+Then visit `localhost:8080` (user/pass: `admin`/`admin`), unpause `wknd_analytics_dbt_dag`, and trigger a run.
+
+**Design notes, since several things here aren't obvious from the DAG file alone:**
+- **Manifest-based loading** — Cosmos reads a pre-generated `target/manifest.json` (built once during `airflow-init`, before the scheduler ever parses the DAG) rather than shelling out to `dbt ls` every time Airflow scans the `dags/` folder. Faster parsing, and it reads dbt's own dependency graph directly.
+- **Explicit upstream seed step** — dbt's `source()` doesn't create a dependency edge on a seed of the same table name (a source just names an externally-produced table; it has no idea a seed happens to populate it). So seeds are excluded from Cosmos's generated task graph and run as a single manual `dbt_seed` task upstream of everything else, exactly the same gap that had to be worked around in the GitHub Actions workflow (see `.github/workflows/actions.yml`).
+- **`max_active_tasks=1`** — DuckDB is a single-writer embedded database; only one process can hold it open for read/write at a time. A real warehouse (Snowflake, BigQuery, Postgres) supports genuine concurrent task execution here — this constraint is specific to choosing DuckDB for local portability, not a property of the orchestration pattern itself.
+- **Known limitation:** on a completely empty/fresh database, Cosmos doesn't wire a `relationships` test's task as depending on every model its compiled SQL references — only the model it's declared on. In practice this means a test checking `fct_bookings` against `dim_customers`, say, can occasionally run before `dim_customers` exists on the *very first* run against an empty database. It's cosmetic: the affected tests just fail once, and every run afterward (including the real daily schedule) succeeds cleanly once those tables exist. A production fix would post-process the rendered task group to inject the missing edges; out of scope for this demo.
+
 ## Tech stack
 
 - [dbt-core](https://github.com/dbt-labs/dbt-core) 1.12
 - [DuckDB](https://duckdb.org/) via [dbt-duckdb](https://github.com/duckdb/dbt-duckdb)
 - Python 3.13 (seed data generation only — not a runtime dependency of the dbt project itself)
+- [Apache Airflow](https://airflow.apache.org/) 2.10 + [astronomer-cosmos](https://astronomer.github.io/astronomer-cosmos/) (optional orchestration layer, see above)
