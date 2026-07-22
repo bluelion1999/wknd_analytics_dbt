@@ -1,0 +1,84 @@
+version: 2
+
+models:
+  - name: stg_wknd__customers
+    columns:
+      - name: customer_id
+        data_tests:
+          - unique
+          - not_null
+
+
+  - name: stg_wknd__adventures
+    columns:
+      - name: adventure_id
+        data_tests:
+          - unique
+          - not_null
+
+
+  - name: stg_wknd__bookings
+    columns:
+      - name: booking_id
+        data_tests:
+          - unique
+          - not_null
+      - name: customer_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_wknd__customers')
+                field: customer_id
+      - name: adventure_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_wknd__adventures')
+                field: adventure_id
+      - name: status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['confirmed', 'completed', 'cancelled']
+
+
+  - name: stg_wknd__payments
+    columns:
+      - name: payment_id
+        data_tests:
+          - unique
+          - not_null
+      - name: booking_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_wknd__bookings')
+                field: booking_id
+      - name: payment_status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['paid', 'refunded']
+
+
+  - name: stg_wknd__reviews
+    columns:
+      - name: review_id
+        data_tests:
+          - unique
+          - not_null
+      - name: rating
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5]
+      - name: booking_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_wknd__bookings')
+                field: booking_id
