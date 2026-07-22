@@ -27,6 +27,12 @@ jobs:
         env:
           DBT_PROFILES_DIR: .
 
+      - name: Seed raw data
+        run: dbt seed
+        env:
+          DBT_PROFILES_DIR: .
+
+
       - name: Run dbt build
         run: dbt build
         env:
